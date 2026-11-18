@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="食间 Campus Bites：按预算、口味和食堂发现校园美食，随机决定今天吃什么。内置25款演示菜品，含10款广式早茶。">
+  <title>食间 · 校园美食推荐助手</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#menu">跳到菜品列表</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="食间首页"><span class="brand-mark" aria-hidden="true">食</span><span class="brand-name">食间<span>CAMPUS BITES</span></span></a>
+      <nav class="navigation" aria-label="主导航">
+        <button class="nav-button active" id="discover-tab" aria-pressed="true">发现美食</button>
+        <button class="nav-button" id="favorites-tab" aria-pressed="false">我的收藏 <span id="favorite-count" class="nav-count">0</span></button>
+      </nav>
+      <span class="header-note"><span class="status-dot"></span>校园里的每一餐，都值得期待</span>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> SMALL BITES, BIG HAPPINESS</div>
+        <h1 id="hero-title">今天吃点<br><span>好心情。</span><svg class="title-spark" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3v13M24 32v13M3 24h13M32 24h13M9 9l9 9M30 30l9 9M9 39l9-9M30 18l9-9"/></svg></h1>
+        <p class="hero-description">从一碗热饭，到一笼早茶。<br>选好预算和口味，下一顿交给食间。</p>
+        <button class="button primary hero-cta" id="hero-random"><span data-icon="shuffle"></span>帮我决定今天吃什么<span aria-hidden="true">↗</span></button>
+        <div class="hero-meta"><span class="avatar-stack" aria-hidden="true"><i>饭</i><i>面</i><i>茶</i></span><span><strong>25</strong> 款好味道 <span class="meta-divider">/</span> 总有一款合你胃口</span></div>
+      </div>
+      <div class="hero-visual" id="hero-art" role="img" aria-label="一份鸡腿饭、一笼广式点心和一杯热茶的原创插画"></div>
+      <span class="hero-vertical" aria-hidden="true">一 日 三 餐 · 好 好 吃 饭</span>
+    </section>
+
+    <div class="section-heading" id="menu">
+      <div><div class="eyebrow section-eyebrow">YOUR NEXT GOOD MEAL</div><h2 id="section-title">寻找你的下一口心动<span class="heading-dot">。</span></h2></div>
+      <span class="menu-total">好吃不纠结 <span aria-hidden="true">✳</span></span>
+    </div>
+
+    <section class="filter-panel" aria-label="筛选菜品">
+      <div class="filter-top">
+        <div class="category-list" id="categories" role="group" aria-label="菜品分类"></div>
+        <label class="search-box"><span data-icon="search"></span><input id="search" type="search" placeholder="搜索菜品，发现好味道" aria-label="搜索菜品" maxlength="80"><kbd aria-hidden="true">/</kbd></label>
+      </div>
+      <div class="filter-bottom">
+        <label class="budget-filter"><span data-icon="wallet"></span><span>每份预算</span><input id="budget" type="range" min="5" max="30" step="1" value="30" aria-label="每份预算上限"><output id="budget-value" for="budget">¥30 内</output></label>
+        <div class="select-filter"><span data-icon="pin"></span><label class="sr-only" for="canteen">选择食堂</label><select id="canteen"><option value="all">全部食堂</option><option>第一食堂</option><option>第二食堂</option><option>第三食堂</option></select></div>
+        <div class="select-filter"><span data-icon="pepper"></span><label class="sr-only" for="taste">选择口味</label><select id="taste"><option value="all">全部口味</option><option>清淡</option><option>鲜香</option><option>咸香</option><option>微辣</option><option>麻辣</option><option>咸甜</option><option>香甜</option><option>咖喱</option></select></div>
+        <button class="reset-button" id="reset-filters"><span data-icon="reset"></span>重置筛选</button>
+      </div>
+    </section>
+
+    <div class="results-bar"><p id="results-summary" role="status" aria-live="polite">为你找到 <strong>25</strong> 道美食</p><div class="results-actions"><label for="sort" class="sr-only">排序方式</label><select id="sort"><option value="recommended">推荐排序</option><option value="price-asc">价格从低到高</option><option value="price-desc">价格从高到低</option><option value="name">菜名排序</option></select><span class="results-separator"></span><span class="demo-pill">演示菜单</span></div></div>
+    <section class="food-grid" id="food-grid" aria-label="菜品列表"></section>
+    <section class="empty-state" id="empty-state" hidden><div id="empty-icon"></div><h3 id="empty-title">还没有找到合适的美食</h3><p id="empty-description">试试提高预算，或换一种口味吧。</p><button class="button secondary" id="empty-reset">重置筛选，重新发现</button></section>
+
+    <section class="tea-banner"><div class="tea-banner-icon" data-icon="tea"></div><div><span class="eyebrow">SLOW DOWN & YUM CHA</span><h3>给忙碌的日子，留一笼早茶的时间。</h3><p>虾饺、烧卖、流沙包……10 款广式点心，慢慢挑，慢慢叹。</p></div><button id="explore-tea" class="button secondary">去叹早茶 <span aria-hidden="true">↗</span></button></section>
+
+    <footer class="footer"><a class="footer-brand" href="./">食间 <span>CAMPUS BITES</span></a><p>好好吃饭，是校园生活里一件很重要的小事。</p><div class="footer-note"><span data-icon="info"></span>菜品、价格和食堂位置均为演示数据，非真实供餐信息。收藏仅保存在当前浏览器。</div><span class="footer-bottom">Made for a tastier campus life.</span></footer>
+  </main>
+
+  <dialog id="food-dialog" class="food-dialog" aria-labelledby="dialog-title"><button class="dialog-close icon-button" id="dialog-close" aria-label="关闭推荐"><span data-icon="close"></span></button><div id="dialog-content"></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

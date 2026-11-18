@@ -1,0 +1,16 @@
+{
+  "name": "campus-bites",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "食间：包含25款演示菜品的校园美食推荐助手",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/logic.test.mjs",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1"
+  }
+}
